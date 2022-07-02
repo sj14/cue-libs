@@ -1,0 +1,20 @@
+name: Release
+"on":
+  - push
+  - pull_request
+jobs:
+  cue-checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup CUE
+        uses: cue-lang/setup-cue@v1.0.0-alpha.2
+      - name: Run CUE fmt
+        run: |-
+          cue fmt ./...
+          git diff --exit-code
+      - name: Run CUE vet
+        run: |-
+          cue vet ./...
+          git diff --exit-code

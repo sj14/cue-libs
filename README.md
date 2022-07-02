@@ -10,3 +10,5 @@ cue import -l '#Workflow:' -p github jsonschema: github-workflow.json
 cue fmt ./... 
 cue export workflows/workflows.cue --out yaml
 ```
+
+cue fmt ./... && cue export workflows/*.cue --out yaml --outfile .github/workflows/cue.yaml --force

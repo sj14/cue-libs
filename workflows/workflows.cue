@@ -2,7 +2,7 @@ package workflows
 
 import (
 	"json.schemastore.org/github"
-	"github.com/sj14/cue-libs/workflows/go"
+	"github.com/sj14/cue-libs/workflows/cue"
 )
 
 // TODO: drop when cuelang.org/issue/390 is fixed.
@@ -17,6 +17,6 @@ github.#Workflow & {
 		"pull_request",
 	]
 	jobs:
-		"go-checks":
-			go.#jobDefault
+		"cue-checks":
+			cue.#jobDefault
 }
