@@ -11,14 +11,12 @@ _#job:  ((github.#Workflow & {}).jobs & {x: _}).x
 _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 
 github.#Workflow & {
-	{
-		name: "Release"
-		on: [
-			"push",
-			"pull_request",
-		]
-		jobs:
-			"go-checks":
-				go.#jobDefault
-	}
+	name: "Release"
+	on: [
+		"push",
+		"pull_request",
+	]
+	jobs:
+		"go-checks":
+			go.#jobDefault
 }
