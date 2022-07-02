@@ -1,6 +1,13 @@
 package go
 
-#goSetup: {
+import "json.schemastore.org/github"
+
+// TODO: drop when cuelang.org/issue/390 is fixed.
+// Declare definitions for sub-schemas
+_#job:  ((github.#Workflow & {}).jobs & {x: _}).x
+_#step: ((_#job & {steps:                   _}).steps & [_])[0]
+
+#goSetup: _#step & {
 	name: "Setup Go"
 	uses: "actions/setup-go@v3"
 	with: {
@@ -10,7 +17,7 @@ package go
 	}
 }
 
-#goFmt: {
+#goFmt: _#step & {
 	name: "Run Go fmt"
 	run: """
 		go fmt ./...
@@ -18,7 +25,7 @@ package go
 		"""
 }
 
-#goMod: {
+#goMod: _#step & {
 	name: "Run Go fmt"
 	run: """
 		go mod tidy
@@ -27,7 +34,7 @@ package go
 		"""
 }
 
-#goTest: {
+#goTest: _#step & {
 	name: "Run Go tests"
 	run:  "go test -race ./..."
 }
