@@ -7,7 +7,12 @@ Release: {
 	jobs: {
 		"runs-on": "ubuntu-latest"
 		steps: [
-			_#installGo,
+			_#checkoutCode,
+			_#goSetup,
+			// _#goMod,
+			_#goFmt,
+			_#goTest,
+
 		]
 	}
 }
@@ -17,7 +22,7 @@ _#checkoutCode: {
 	uses: "actions/checkout@v2"
 }
 
-_#installGo: {
+_#goSetup: {
 	name: "Setup Go"
 	uses: "actions/setup-go@v3"
 	with: {
@@ -27,7 +32,15 @@ _#installGo: {
 	}
 }
 
+_#goFmt: {
+	name: "Run Go fmt"
+	run: """
+		go fmt ./...
+		git status --exit-code
+		"""
+}
+
 _#goTest: {
-	name: "Test"
+	name: "Run Go tests"
 	run:  "go test -race ./..."
 }
