@@ -9,7 +9,7 @@ Release: {
 		steps: [
 			_#checkoutCode,
 			_#goSetup,
-			// _#goMod,
+			_#goMod,
 			_#goFmt,
 			_#goTest,
 
@@ -36,7 +36,16 @@ _#goFmt: {
 	name: "Run Go fmt"
 	run: """
 		go fmt ./...
-		git status --exit-code
+		git diff --exit-code
+		"""
+}
+
+_#goMod: {
+	name: "Run Go fmt"
+	run: """
+		go mod tidy
+		go mod verify
+		git diff --exit-code
 		"""
 }
 
