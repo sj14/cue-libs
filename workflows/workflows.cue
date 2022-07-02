@@ -11,7 +11,7 @@ _#job:  ((github.#Workflow & {}).jobs & {x: _}).x
 _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 
 github.#Workflow & {
-	name: "Release"
+	name: "CI"
 	on: [
 		"push",
 		"pull_request",
