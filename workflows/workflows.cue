@@ -18,14 +18,14 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 			"push",
 			"pull_request",
 		]
-		jobs: gotests: {
+		jobs: "go": {
 			"runs-on": "ubuntu-latest"
 			steps: [
 				common.#checkoutCode,
-				go.#goSetup,
-				go.#goMod,
-				go.#goFmt,
-				go.#goTest,
+				go.#setup,
+				go.#mod,
+				go.#fmt,
+				go.#test,
 			]
 		}
 	}

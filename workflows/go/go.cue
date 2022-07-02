@@ -7,7 +7,7 @@ import "json.schemastore.org/github"
 _#job:  ((github.#Workflow & {}).jobs & {x: _}).x
 _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 
-#goSetup: _#step & {
+#setup: _#step & {
 	name: "Setup Go"
 	uses: "actions/setup-go@v3"
 	with: {
@@ -17,7 +17,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 	}
 }
 
-#goFmt: _#step & {
+#fmt: _#step & {
 	name: "Run Go fmt"
 	run: """
 		go fmt ./...
@@ -25,7 +25,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#goMod: _#step & {
+#mod: _#step & {
 	name: "Run Go fmt"
 	run: """
 		go mod tidy
@@ -34,7 +34,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#goTest: _#step & {
+#test: _#step & {
 	name: "Run Go tests"
 	run:  "go test -race ./..."
 }
