@@ -16,7 +16,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepFmt: _#step & {
-	name: "Run CUE fmt"
+	name: "CUE fmt"
 	run: """
 		cue fmt ./...
 		git diff --exit-code
@@ -24,7 +24,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepVet: _#step & {
-	name: "Run CUE vet"
+	name: "CUE vet"
 	run: """
 		cue vet ./...
 		git diff --exit-code
@@ -32,7 +32,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepGen: _#step & {
-	name: "Run CUE vet"
+	name: "CUE genworkflows"
 	run: """
 		cue cmd genworkflows ./workflows
 		git diff --exit-code

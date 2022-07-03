@@ -21,7 +21,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepFmt: _#step & {
-	name: "Run Go fmt"
+	name: "Go fmt"
 	run: """
 		go fmt ./...
 		git diff --exit-code
@@ -29,7 +29,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepMod: _#step & {
-	name: "Go mod checks"
+	name: "Mod checks"
 	run: """
 		go mod tidy
 		go mod verify
@@ -38,7 +38,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepTest: _#step & {
-	name: "Run Go tests"
+	name: "Go tests"
 	run:  "go test -race ./..."
 }
 
