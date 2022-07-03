@@ -12,15 +12,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup CUE
         uses: cue-lang/setup-cue@v1.0.0-alpha.2
-      - name: Run CUE fmt
+      - name: CUE fmt
         run: |-
           cue fmt ./...
           git diff --exit-code
-      - name: Run CUE vet
+      - name: CUE vet
         run: |-
           cue vet ./...
           git diff --exit-code
-      - name: Run CUE vet
+      - name: CUE genworkflows
         run: |-
           cue cmd genworkflows ./workflows
           git diff --exit-code

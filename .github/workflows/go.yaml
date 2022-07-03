@@ -16,14 +16,14 @@ jobs:
           go-version: "1.18"
           cache: "true"
           cache-dependency-path: go.sum
-      - name: Go mod checks
+      - name: Mod checks
         run: |-
           go mod tidy
           go mod verify
           git diff --exit-code
-      - name: Run Go fmt
+      - name: Go fmt
         run: |-
           go fmt ./...
           git diff --exit-code
-      - name: Run Go tests
+      - name: Go tests
         run: go test -race ./...
