@@ -6,9 +6,12 @@ curl -sO https://json.schemastore.org/github-workflow.json
 
 cue import -l '#Workflow:' -p github jsonschema: github-workflow.json
 
+
+~~cue export workflows/workflows.cue --out yaml~~
+
+~~cue export workflows/*.cue --out yaml --outfile .github/workflows/cue.yaml --force~~
+
 ```
 cue fmt ./... 
-cue export workflows/workflows.cue --out yaml
+cue cmd genworkflows ./workflows
 ```
-
-cue fmt ./... && cue export workflows/*.cue --out yaml --outfile .github/workflows/cue.yaml --force
