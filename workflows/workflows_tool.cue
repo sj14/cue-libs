@@ -32,6 +32,7 @@ workflows: [
 					push: {
 						paths: [
 							"**.cue",
+							filename,
 						]
 					}
 				}

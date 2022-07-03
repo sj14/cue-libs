@@ -3,6 +3,7 @@ name: CUE Checks
   push:
     paths:
       - '**.cue'
+      - ./.github/workflows/cue.yaml
 jobs:
   cue-checks:
     runs-on: ubuntu-22.04
