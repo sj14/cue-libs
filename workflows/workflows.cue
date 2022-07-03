@@ -11,11 +11,14 @@ _#job:  ((github.#Workflow & {}).jobs & {x: _}).x
 _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 
 github.#Workflow & {
-	name: "CI"
-	on: [
-		"push",
-		"pull_request",
-	]
+	name: "CUE Checks"
+	on: {
+		push: {
+			paths: [
+				"**.cue",
+			]
+		}
+	}
 	jobs:
 		"cue-checks":
 			cue.#jobDefault
