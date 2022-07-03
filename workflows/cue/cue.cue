@@ -31,6 +31,14 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
+#stepGen: _#step & {
+	name: "Run CUE vet"
+	run: """
+		cue cmd genworkflows ./workflows
+		git diff --exit-code
+		"""
+}
+
 #jobDefault: _#job & {
 	"runs-on": "ubuntu-22.04"
 	steps: [
@@ -38,6 +46,6 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		#stepSetup,
 		#stepFmt,
 		#stepVet,
-		// TODO: check if exported file is up2date
+		#stepGen,
 	]
 }

@@ -3,7 +3,7 @@ name: CUE Checks
   push:
     paths:
       - '**.cue'
-      - ./.github/workflows/cue.yaml
+      - .github/workflows/cue.yaml
 jobs:
   cue-checks:
     runs-on: ubuntu-22.04
@@ -19,4 +19,8 @@ jobs:
       - name: Run CUE vet
         run: |-
           cue vet ./...
+          git diff --exit-code
+      - name: Run CUE vet
+        run: |-
+          cue cmd genworkflows ./workflows
           git diff --exit-code
