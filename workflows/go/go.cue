@@ -29,7 +29,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 }
 
 #stepMod: _#step & {
-	name: "Run Go fmt"
+	name: "Go mod checks"
 	run: """
 		go mod tidy
 		go mod verify
