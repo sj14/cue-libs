@@ -1,0 +1,29 @@
+name: Go Checks
+"on":
+  push:
+    paths:
+      - '**.go'
+      - ./.github/workflows/go.yaml
+jobs:
+  go-checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.18"
+          cache: "true"
+          cache-dependency-path: go.sum
+      - name: Run Go fmt
+        run: |-
+          go mod tidy
+          go mod verify
+          git diff --exit-code
+      - name: Run Go fmt
+        run: |-
+          go fmt ./...
+          git diff --exit-code
+      - name: Run Go tests
+        run: go test -race ./...
