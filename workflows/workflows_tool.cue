@@ -6,7 +6,6 @@ import (
 	"github.com/sj14/cue-libs/workflows/go"
 	"tool/file"
 	"encoding/yaml"
-
 )
 
 command: genworkflows: {

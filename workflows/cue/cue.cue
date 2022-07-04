@@ -1,21 +1,15 @@
 package cue
 
 import (
-	"json.schemastore.org/github"
 	"github.com/sj14/cue-libs/workflows/common"
 )
 
-// TODO: drop when cuelang.org/issue/390 is fixed.
-// Declare definitions for sub-schemas
-_#job:  ((github.#Workflow & {}).jobs & {x: _}).x
-_#step: ((_#job & {steps:                   _}).steps & [_])[0]
-
-#stepSetup: _#step & {
+#stepSetup: common.#step & {
 	name: "Setup CUE"
 	uses: "cue-lang/setup-cue@v1.0.0-alpha.2"
 }
 
-#stepFmt: _#step & {
+#stepFmt: common.#step & {
 	name: "CUE fmt"
 	run: """
 		cue fmt ./...
@@ -23,7 +17,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#stepVet: _#step & {
+#stepVet: common.#step & {
 	name: "CUE vet"
 	run: """
 		cue vet ./...
@@ -31,7 +25,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#stepGen: _#step & {
+#stepGen: common.#step & {
 	name: "CUE genworkflows"
 	run: """
 		cue cmd genworkflows ./workflows
@@ -39,7 +33,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#jobDefault: _#job & {
+#jobDefault: common.#job & {
 	"runs-on": "ubuntu-22.04"
 	steps: [
 		common.#checkoutCode,

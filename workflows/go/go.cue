@@ -1,16 +1,10 @@
 package go
 
 import (
-	"json.schemastore.org/github"
 	"github.com/sj14/cue-libs/workflows/common"
 )
 
-// TODO: drop when cuelang.org/issue/390 is fixed.
-// Declare definitions for sub-schemas
-_#job:  ((github.#Workflow & {}).jobs & {x: _}).x
-_#step: ((_#job & {steps:                   _}).steps & [_])[0]
-
-#stepSetup: _#step & {
+#stepSetup: common.#step & {
 	name: "Setup Go"
 	uses: "actions/setup-go@v3"
 	with: {
@@ -20,7 +14,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 	}
 }
 
-#stepFmt: _#step & {
+#stepFmt: common.#step & {
 	name: "Go fmt"
 	run: """
 		go fmt ./...
@@ -28,7 +22,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#stepMod: _#step & {
+#stepMod: common.#step & {
 	name: "Mod checks"
 	run: """
 		go mod tidy
@@ -37,19 +31,19 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
-#stepVet: _#step & {
+#stepVet: common.#step & {
 	name: "Go vet"
 	run: """
 		go vet ./...
 		"""
 }
 
-#stepTest: _#step & {
+#stepTest: common.#step & {
 	name: "Go tests"
 	run:  "go test -race ./..."
 }
 
-#jobDefault: _#job & {
+#jobDefault: common.#job & {
 	"runs-on": "ubuntu-22.04"
 	steps: [
 		common.#checkoutCode,
