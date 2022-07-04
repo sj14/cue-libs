@@ -37,6 +37,13 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		"""
 }
 
+#stepVet: _#step & {
+	name: "Go vet"
+	run: """
+		go vet ./...
+		"""
+}
+
 #stepTest: _#step & {
 	name: "Go tests"
 	run:  "go test -race ./..."
@@ -49,6 +56,7 @@ _#step: ((_#job & {steps:                   _}).steps & [_])[0]
 		#stepSetup,
 		#stepMod,
 		#stepFmt,
+		#stepVet,
 		#stepTest,
 	]
 }
