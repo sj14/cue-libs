@@ -2,8 +2,10 @@ name: Go Checks
 "on":
   push:
     paths:
+      - go.mod
+      - go.sum
       - '**.go'
-      - .github/workflows/go.yaml
+      - .github/workflows/**
 jobs:
   go-checks:
     runs-on: ubuntu-22.04
